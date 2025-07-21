@@ -1,3 +1,10 @@
 ###testJS
 index.js
 example.txt
+
+# Node.js
+node_modules/
+
+# package
+package.json
+package-lock.json

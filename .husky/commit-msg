@@ -1,0 +1,37 @@
+#!/bin/sh
+
+commit_msg_file=$1
+commit_msg=$(cat "$commit_msg_file")
+
+# 조건 0: 특정 디렉토리에 변경된 파일이 있는지 확인
+changed_files=$(git diff --cached --name-only)
+
+apply_check=false
+
+for file in $changed_files; do
+  if echo "$file" | grep -qE '^Baekjoon/|^Programmers/'; then
+    apply_check=true
+    break
+  fi
+done
+
+if [ "$apply_check" = false ]; then
+  echo "🔁 Baekjoon/ 또는 Programmers/ 내 변경 사항이 없으므로 규칙 검사 생략"
+  exit 0
+fi
+
+# 🍉: 로 시작해야 함
+if ! echo "$commit_msg" | grep -q "^🍉:"; then
+  echo "❌ 커밋 메시지는 🍉: 로 시작해야 합니다."
+  exit 1
+fi
+
+# '/' 가 두 번 이상 포함되어야 함
+slash_count=$(echo "$commit_msg" | grep -o "/" | wc -l)
+
+if [ "$slash_count" -lt 2 ]; then
+  echo "❌ 커밋 메시지에는 '/' 문자가 두 번 이상 포함되어야 합니다."
+  exit 1
+fi
+
+echo "✅ 커밋 메시지 확인 완료"
