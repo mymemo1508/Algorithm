@@ -1,0 +1,17 @@
+function solution(numer1, denom1, numer2, denom2) {
+    var answer = [];
+    // 분자
+    let topNum = denom2*numer1 + denom1*numer2;
+    // 분모
+    let botNum = denom1*denom2;
+    // 최소 공배수
+    let maximum = 1;
+    //약분
+    for(let i = 1; i<= topNum; i++){
+        if(topNum%i === 0 && botNum%i === 0){
+            maximum = i;
+        }
+    }
+    answer = [topNum/maximum, botNum/maximum];
+    return answer;
+}
