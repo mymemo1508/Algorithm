@@ -7,7 +7,7 @@
 */
 
 -- 코드를 입력하세요
-SELECT *
+SELECT CAR_ID, CAR_TYPD, FEE
 FROM (
         SELECT C.CAR_ID
              , C.CAR_TYPE
