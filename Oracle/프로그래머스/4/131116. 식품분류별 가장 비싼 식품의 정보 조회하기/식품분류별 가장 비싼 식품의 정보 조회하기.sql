@@ -1,0 +1,17 @@
+/*
+조회: CATEGORY, PRICE, PRODUCT_NAME
+조건: 분류 별로 가장 비싼 식품 / CATEGORY IN ('과자', '국', '김치', '식용유')
+정렬: PRICE DESC
+*/
+
+SELECT CATEGORY, PRICE AS MAX_PRICE, PRODUCT_NAME
+FROM (
+        SELECT CATEGORY
+             , PRICE
+             , PRODUCT_NAME
+             , ROW_NUMBER() OVER(PARTITION BY CATEGORY ORDER BY PRICE DESC) AS RNK
+        FROM FOOD_PRODUCT
+        WHERE CATEGORY IN ('과자', '국', '김치', '식용유')
+)
+WHERE RNK = 1
+ORDER BY PRICE DESC
