@@ -1,0 +1,25 @@
+/*
+-- 조건: ROUND(상품을 구매한 회원 수 / 2021년에 가입한 전체 회원 수, 2), 년, 월
+-- 정렬: 년, 월
+-- 테이블: USER_INFO U ONLINE_SALE S
+*/
+
+SELECT S.YEAR
+     , S.MONTH
+     , COUNT(DISTINCT S.USER_ID) AS PURCHASED_USERS
+     , ROUND(
+                COUNT(DISTINCT S.USER_ID) /
+                (SELECT COUNT(*)
+                FROM USER_INFO
+                WHERE EXTRACT(YEAR FROM JOINED) = 2021)
+            , 1) AS PURCHASED_RATIO
+FROM (
+        SELECT USER_ID
+             , EXTRACT(YEAR FROM SALES_DATE) AS YEAR
+             , EXTRACT(MONTH FROM SALES_DATE) AS MONTH
+        FROM ONLINE_SALE
+     ) S
+JOIN USER_INFO U ON S.USER_ID = U.USER_ID
+WHERE EXTRACT(YEAR FROM U.JOINED) = 2021
+GROUP BY S.YEAR, S.MONTH
+ORDER BY 1, 2
