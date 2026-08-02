@@ -1,3 +1,12 @@
+| 문제 표현          | 자바 메서드         |
+| -------------- | -------------- |
+| 문자열을 포함하는가?    | `contains()`   |
+| 두 문자열이 같은가?    | `equals()`     |
+| 특정 문자열로 시작하는가? | `startsWith()` |
+| 특정 문자열로 끝나는가?  | `endsWith()`   |
+| 특정 문자열의 위치는?   | `indexOf()`    |
+
+
 # [level 0] 문자열안에 문자열 - 120908 
 
 [문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120908) 
